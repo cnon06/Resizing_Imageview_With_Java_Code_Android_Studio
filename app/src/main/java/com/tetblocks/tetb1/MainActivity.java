@@ -3,11 +3,62 @@ package com.tetblocks.tetb1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+
+
+
 public class MainActivity extends AppCompatActivity {
+
+    LinearLayout ln1;
+    LinearLayout.LayoutParams parms;
+    ImageView iv [] [];
+    LinearLayout.LayoutParams lp1;
+    LinearLayout lln [];
+
+
+
+
+    public void rew()
+    {
+        new Thread(){
+
+            @Override
+            public void run() {
+
+                int i=0;
+
+                try
+                {
+
+                    while (i<20)
+                    {
+                        sleep(1000);
+                        Log.d("",i+"");
+
+                        for(int x=3;x<7;x++)
+                        {
+                            iv [x] [i].setImageResource(R.drawable.tet1);
+                            if(i>0)   iv [x] [i-1].setImageResource(R.drawable.tet2);
+                        }
+
+
+                        i++;
+                    }
+
+                }
+                catch (Exception ed)
+                {
+                    System.out.println("Error code 10:"+ed);
+                }
+            }
+        }.start();
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,20 +66,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        LinearLayout ln1 = findViewById(R.id.ln1);
-        LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(
+
+        ln1 = findViewById(R.id.ln1);
+
+
+       lp1 = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
         );
 
         ln1.setOrientation(LinearLayout.VERTICAL);
 
 
-        LinearLayout lln [] = new LinearLayout[20];
+         lln  = new LinearLayout[20];
 
 
-        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(60,60);
+         parms = new LinearLayout.LayoutParams(65,65);
 
-        ImageView iv [] [] = new ImageView[10] [20];
+         iv  = new ImageView[10] [20];
 
 
 
@@ -42,20 +96,20 @@ public class MainActivity extends AppCompatActivity {
 
             for(int y=0;y<iv.length;y++)
             {
-                iv [y] [i]= new ImageView(this) ;
-                iv [y] [i].setImageResource(R.drawable.tet1);
+                iv [y] [i]= new ImageView(this);
+                iv [y] [i].setImageResource(R.drawable.tet2);
                 lln[i].addView(iv[y][i], lp1);
                 iv[y][i].setLayoutParams(parms);
 
             }
 
 
-
-
         }
 
 
 
+
+        rew();
 
 
 
