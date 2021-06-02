@@ -15,6 +15,7 @@
        android:layout_centerInParent="true"
        android:orientation="horizontal"
        android:id="@+id/ln1"
+
       >
 
 
