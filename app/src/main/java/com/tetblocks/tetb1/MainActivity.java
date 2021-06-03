@@ -2,11 +2,16 @@ package com.tetblocks.tetb1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -47,14 +52,52 @@ public class MainActivity extends AppCompatActivity {
         ln1.setOrientation(LinearLayout.VERTICAL);
 
 
+        // Butonların ve gameboardın yerleri aşağıdaki methodlar ile yapılmıştır
+
         game_board(70,70);
-        timer1();
         space_between_game_board_and_controller(100);
         controller();
         space_between_game_board_and_controller(100);
         controller2();
 
-        right_arrow.setOnClickListener(new View.OnClickListener() {
+
+
+        timer1();
+
+
+            right_arrow.setOnTouchListener(new View.OnTouchListener() {
+                @SuppressLint("ClickableViewAccessibility")
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch(event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            //sqr.setBackgroundColor(Color.RED);
+                            Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                            vibe.vibrate(100);
+                            //vibe.vibrate(100);
+                            right_arrow.setImageResource(R.drawable.red_right_arrow);
+                            return true;
+                        case MotionEvent.ACTION_UP:
+
+
+                            right_arrow.setImageResource(R.drawable.right_arrow);
+                            // sqr.setBackgroundColor(Color.parseColor("#17615B"));
+
+
+
+
+                            // process("/");
+                            return true;
+                    }
+                    return false;
+                }
+            });
+
+
+
+
+        /*
+         right_arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -62,10 +105,39 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+         */
+
+
+        left_arrow.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        //sqr.setBackgroundColor(Color.RED);
+                        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                        vibe.vibrate(100);
+                        //vibe.vibrate(100);
+                        left_arrow.setImageResource(R.drawable.red_left_arrow);
+                        return true;
+                    case MotionEvent.ACTION_UP:
+
+
+                        left_arrow.setImageResource(R.drawable.left_arrow);
+                        // sqr.setBackgroundColor(Color.parseColor("#17615B"));
 
 
 
-        left_arrow.setOnClickListener(new View.OnClickListener() {
+
+                        // process("/");
+                        return true;
+                }
+                return false;
+            }
+        });
+
+        /*
+         left_arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -73,8 +145,40 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+         */
 
-        turn_arrow.setOnClickListener(new View.OnClickListener() {
+
+        turn_arrow.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        //sqr.setBackgroundColor(Color.RED);
+                        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                        vibe.vibrate(100);
+                        //vibe.vibrate(100);
+                        turn_arrow.setImageResource(R.drawable.red_repeat);
+                        return true;
+                    case MotionEvent.ACTION_UP:
+
+
+                        turn_arrow.setImageResource(R.drawable.repeat);
+                        // sqr.setBackgroundColor(Color.parseColor("#17615B"));
+
+
+
+
+                        // process("/");
+                        return true;
+                }
+                return false;
+            }
+        });
+
+
+        /*
+         turn_arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -82,17 +186,78 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+         */
 
-        down_arrow.setOnClickListener(new View.OnClickListener() {
+
+        down_arrow.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        //sqr.setBackgroundColor(Color.RED);
+                        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                        vibe.vibrate(100);
+                        //vibe.vibrate(100);
+                        down_arrow.setImageResource(R.drawable.red_down_arrow);
+                        return true;
+                    case MotionEvent.ACTION_UP:
 
-                msg_box("Down Arrow");
 
+                        down_arrow.setImageResource(R.drawable.down_arrow);
+                        // sqr.setBackgroundColor(Color.parseColor("#17615B"));
+
+
+                        // process("/");
+                        return true;
+                }
+                return false;
             }
         });
 
-        double_down_arrow.setOnClickListener(new View.OnClickListener() {
+
+        /*
+        down_arrow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        msg_box("Down Arrow");
+
+                    }
+                });
+         */
+
+
+        double_down_arrow.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        //sqr.setBackgroundColor(Color.RED);
+                        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                        vibe.vibrate(100);
+                        //vibe.vibrate(100);
+                        double_down_arrow.setImageResource(R.drawable.red_doublearrow);
+                        return true;
+                    case MotionEvent.ACTION_UP:
+
+
+                        double_down_arrow.setImageResource(R.drawable.doublearrow);
+                        // sqr.setBackgroundColor(Color.parseColor("#17615B"));
+
+
+                        // process("/");
+                        return true;
+                }
+                return false;
+            }
+        });
+
+
+
+        /*
+         double_down_arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -100,6 +265,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+         */
+
 
     }
 
