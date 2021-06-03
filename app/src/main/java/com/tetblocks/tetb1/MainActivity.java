@@ -2,22 +2,24 @@ package com.tetblocks.tetb1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
 
     LinearLayout ln1, lln [],controller, space_between_game_board_and_controller, controller2;
     LinearLayout.LayoutParams parms, controller_parms;
-    ImageView iv [] [],right_arrow;
+    ImageView iv [] [],right_arrow, left_arrow,  turn_arrow, down_arrow, double_down_arrow ;
     LinearLayout.LayoutParams lp1;
 
 
@@ -52,9 +54,75 @@ public class MainActivity extends AppCompatActivity {
         space_between_game_board_and_controller(100);
         controller2();
 
+        right_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                msg_box("Right Arrow");
+
+            }
+        });
+
+
+
+        left_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            msg_box("Left Arrow");
+
+            }
+        });
+
+        turn_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                msg_box("Turn Arrow");
+
+            }
+        });
+
+        down_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                msg_box("Down Arrow");
+
+            }
+        });
+
+        double_down_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                msg_box("Double Down Arrow");
+
+            }
+        });
+
     }
 
 
+    public void msg_box(String msg)
+    {
+
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage(msg);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+
+
+
+        alertDialog.show();
+
+    }
 
     public void timer1()
     {
@@ -167,9 +235,10 @@ public class MainActivity extends AppCompatActivity {
         controller.setOrientation(LinearLayout.HORIZONTAL);
         controller.setGravity(Gravity.CENTER);
 
-        left_arrow();
+        down_arrow();
         between_arrows(200,200);
-        turn_arrow();
+        double_down_arrow();
+
 
        /*
           between_arrows(200,200);
@@ -204,26 +273,26 @@ public class MainActivity extends AppCompatActivity {
 
     public void left_arrow()
     {
-        right_arrow= new ImageView(this);
-        right_arrow.setImageResource(R.drawable.arrow);
-        controller.addView(right_arrow, lp1);
+        left_arrow= new ImageView(this);
+        left_arrow.setImageResource(R.drawable.left_arrow);
+        controller.addView(left_arrow, lp1);
         controller_parms = new LinearLayout.LayoutParams(200,200);
-        right_arrow.setLayoutParams(controller_parms);
+        left_arrow.setLayoutParams(controller_parms);
     }
 
     public void turn_arrow()
     {
-        right_arrow= new ImageView(this);
-        right_arrow.setImageResource(R.drawable.arrow);
-        controller.addView(right_arrow, lp1);
+        turn_arrow= new ImageView(this);
+        turn_arrow.setImageResource(R.drawable.repeat);
+        controller.addView(turn_arrow, lp1);
         controller_parms = new LinearLayout.LayoutParams(200,200);
-        right_arrow.setLayoutParams(controller_parms);
+        turn_arrow.setLayoutParams(controller_parms);
     }
 
     public void right_arrow()
     {
         right_arrow= new ImageView(this);
-        right_arrow.setImageResource(R.drawable.arrow);
+        right_arrow.setImageResource(R.drawable.right_arrow);
         controller.addView(right_arrow, lp1);
         controller_parms = new LinearLayout.LayoutParams(200,200);
         right_arrow.setLayoutParams(controller_parms);
@@ -231,28 +300,25 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-    /*
-      public void down_arrow3()
+      public void down_arrow()
     {
-        right_arrow= new ImageView(this);
-        right_arrow.setImageResource(R.drawable.arrow);
-        controller.addView(right_arrow, lp1);
+        down_arrow= new ImageView(this);
+        down_arrow.setImageResource(R.drawable.down_arrow);
+        controller.addView(down_arrow, lp1);
         controller_parms = new LinearLayout.LayoutParams(200,200);
-        right_arrow.setLayoutParams(controller_parms);
+        down_arrow.setLayoutParams(controller_parms);
     }
 
-    public void down_arrow4()
+    public void double_down_arrow()
     {
-        right_arrow= new ImageView(this);
-        right_arrow.setImageResource(R.drawable.arrow);
-        controller.addView(right_arrow, lp1);
+        double_down_arrow= new ImageView(this);
+        double_down_arrow.setImageResource(R.drawable.doublearrow);
+        controller.addView(double_down_arrow, lp1);
         controller_parms = new LinearLayout.LayoutParams(200,200);
-        right_arrow.setLayoutParams(controller_parms);
+        double_down_arrow.setLayoutParams(controller_parms);
     }
 
-     */
+
 
 
 
