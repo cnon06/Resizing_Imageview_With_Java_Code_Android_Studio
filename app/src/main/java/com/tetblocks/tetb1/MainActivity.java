@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout.LayoutParams parms, controller_parms;
     ImageView iv [] [],right_arrow, left_arrow,  turn_arrow, down_arrow, double_down_arrow ;
     LinearLayout.LayoutParams lp1;
+    int first=3, last = 7, vertical=0;
+    boolean coords [][];
 
 
 
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+
         
         ln1 = findViewById(R.id.ln1);
 
@@ -52,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         ln1.setOrientation(LinearLayout.VERTICAL);
 
 
+
+
         // Butonların ve gameboardın yerleri aşağıdaki methodlar ile yapılmıştır
 
         game_board(70,70);
@@ -59,10 +64,11 @@ public class MainActivity extends AppCompatActivity {
         controller();
         space_between_game_board_and_controller(100);
         controller2();
+        screen_refresh();
 
 
 
-        timer1();
+
 
 
             right_arrow.setOnTouchListener(new View.OnTouchListener() {
@@ -75,16 +81,25 @@ public class MainActivity extends AppCompatActivity {
                             Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                             vibe.vibrate(100);
                             //vibe.vibrate(100);
+
                             right_arrow.setImageResource(R.drawable.red_right_arrow);
+
+                            if(last<10)
+                            {
+                                first++;
+                                last++;
+
+
+
+                                iv [first-1] [0].setImageResource(R.drawable.tet2);
+
+                            }
+
                             return true;
                         case MotionEvent.ACTION_UP:
 
-
                             right_arrow.setImageResource(R.drawable.right_arrow);
                             // sqr.setBackgroundColor(Color.parseColor("#17615B"));
-
-
-
 
                             // process("/");
                             return true;
@@ -119,8 +134,23 @@ public class MainActivity extends AppCompatActivity {
                         vibe.vibrate(100);
                         //vibe.vibrate(100);
                         left_arrow.setImageResource(R.drawable.red_left_arrow);
+
+                        if(first>0)
+                        {
+                            first--;
+                            last--;
+                            iv [last] [0].setImageResource(R.drawable.tet2);
+
+                          //  Toast.makeText(MainActivity.this,first+"",Toast.LENGTH_LONG).show();
+                        }
+
+
                         return true;
                     case MotionEvent.ACTION_UP:
+
+
+
+
 
 
                         left_arrow.setImageResource(R.drawable.left_arrow);
@@ -256,19 +286,37 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        /*
-         double_down_arrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                msg_box("Double Down Arrow");
+
+      // timer1();
+    }
+
+
+
+ public void screen_refresh()
+    {
+
+
+        coords = new boolean[20][10];
+
+        /*
+          for(int x=0;x<coords.length;x++)
+        {
+            for(int y=0;y<coords[0].length;y++)
+            {
+                coords[x][y]=true;
 
             }
-        });
+
+        }
          */
+
+       horizontal_bar(3 ,0);
+        // for(int y=0;y<20;y++)
 
 
     }
+
 
 
     public void msg_box(String msg)
@@ -298,24 +346,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                int i=0;
+
 
                 try
                 {
 
-                    while (i<20)
+                    while (vertical<20)
                     {
                         sleep(1000);
-                        Log.d("",i+"");
+                        Log.d("",vertical+"");
 
-                        for(int x=3;x<7;x++)
+
+                        /*
+                        for(int x=first;x<last;x++)
                         {
-                            iv [x] [i].setImageResource(R.drawable.tet1);
-                            if(i>0)   iv [x] [i-1].setImageResource(R.drawable.tet2);
+                            iv [x] [vertical].setImageResource(R.drawable.tet1);
+                            if(vertical>0)   iv [x] [vertical-1].setImageResource(R.drawable.tet2);
                         }
+                         */
 
 
-                        i++;
+
+                        vertical++;
+
                     }
 
                 }
@@ -330,13 +383,95 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    public  void horizontal_bar(int apsis, int ordinate)
+    {
+
+
+/*
+
+        for(int y=3;y<4;y++)
+        {
+
+
+            for(int x=3;x<7;x++)
+            {
+                coords[y][x]=false;
+            }
+
+        }
+
+ */
+
+
+
+        for(int y=0;y<coords.length;y++) {
+
+            for (int x = 0; x < coords[0].length; x++) {
+
+                if(x>=apsis && x<=apsis+3 && y>=ordinate &&  y<= ordinate) coords[y][x]=false;
+                else  coords[y][x]=true;
+
+            }
+
+        }
+
+         for(int y=0;y<coords.length;y++)
+        {
+            // for(int x=0;x<10;x++)
+
+
+            for(int x=0;x<coords[0].length;x++)
+            {
+
+                if(coords[y][x]==true)  iv [x] [y].setImageResource(R.drawable.tet2);
+                else  iv [x] [y].setImageResource(R.drawable.tet1);
+
+
+            }
+
+        }
+
+
+
+
+
+
+/*
+ for(int x=3;x<7;x++)
+        {
+            coords[0][x]=false;
+        }
+ */
+
+
+        /*
+         try {
+            for(int x=first;x<last;x++)
+            {
+                  if(vertical>0)  iv [x] [vertical-1].setImageResource(R.drawable.tet2);
+                iv [x] [vertical].setImageResource(R.drawable.tet1);
+
+            }
+        }
+        catch (Exception e)
+        {
+
+        }
+         */
+
+
+
+    }
+
+    /*
+
+     */
 
     public void game_board(int Width, int Height)
     {
         lln  = new LinearLayout[20];
         parms = new LinearLayout.LayoutParams(Width,Height);
         iv  = new ImageView[10] [20];
-
 
 
 
@@ -366,7 +501,7 @@ public class MainActivity extends AppCompatActivity {
              */
 
 
-            for(int y=0;y<iv.length;y++)
+               for(int y=0;y<iv.length;y++)
             {
                 iv [y] [i]= new ImageView(this);
                 iv [y] [i].setImageResource(R.drawable.tet2);
@@ -377,6 +512,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+
+
+
+
     }
 
 
