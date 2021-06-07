@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout.LayoutParams parms, controller_parms;
     ImageView iv [] [],right_arrow, left_arrow,  turn_arrow, down_arrow, double_down_arrow ;
     LinearLayout.LayoutParams lp1;
-    int first=3, last = 7, vertical=0;
+    int first=0, last = 7, vertical=0;
     boolean coords [][];
 
 
@@ -84,14 +84,12 @@ public class MainActivity extends AppCompatActivity {
 
                             right_arrow.setImageResource(R.drawable.red_right_arrow);
 
-                            if(last<10)
+                            if(first<6)
                             {
                                 first++;
-                                last++;
 
+                                horizontal_bar(first,vertical);
 
-
-                                iv [first-1] [0].setImageResource(R.drawable.tet2);
 
                             }
 
@@ -138,11 +136,13 @@ public class MainActivity extends AppCompatActivity {
                         if(first>0)
                         {
                             first--;
-                            last--;
-                            iv [last] [0].setImageResource(R.drawable.tet2);
 
-                          //  Toast.makeText(MainActivity.this,first+"",Toast.LENGTH_LONG).show();
+                            horizontal_bar(first,vertical);
+
+
                         }
+
+
 
 
                         return true;
@@ -288,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-      // timer1();
+    timer1();
     }
 
 
@@ -311,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
         }
          */
 
-       horizontal_bar(3 ,0);
+       horizontal_bar(first ,vertical);
         // for(int y=0;y<20;y++)
 
 
@@ -356,6 +356,10 @@ public class MainActivity extends AppCompatActivity {
                         sleep(1000);
                         Log.d("",vertical+"");
 
+
+
+
+                        horizontal_bar(first,vertical);
 
                         /*
                         for(int x=first;x<last;x++)
