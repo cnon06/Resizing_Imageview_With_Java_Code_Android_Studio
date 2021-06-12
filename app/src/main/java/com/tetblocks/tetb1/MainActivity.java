@@ -26,12 +26,9 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout.LayoutParams parms, controller_parms;
     ImageView iv [] [],right_arrow, left_arrow,  turn_arrow, down_arrow, double_down_arrow ;
     LinearLayout.LayoutParams lp1;
-    int first=0, last = 7, vertical=0;
-    boolean coords [][];
-
-
-
-
+    int first=4, last = 7, vertical=0,direction=1, max_right=6;
+    boolean coords [][]  = new boolean[20][10];
+ //    bar bar1 = new bar();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-
         
         ln1 = findViewById(R.id.ln1);
-
 
 
        lp1 = new LinearLayout.LayoutParams(
@@ -53,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
         );
 
         ln1.setOrientation(LinearLayout.VERTICAL);
-
-
 
 
         // Butonların ve gameboardın yerleri aşağıdaki methodlar ile yapılmıştır
@@ -68,28 +61,24 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
             right_arrow.setOnTouchListener(new View.OnTouchListener() {
                 @SuppressLint("ClickableViewAccessibility")
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     switch(event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
-                            //sqr.setBackgroundColor(Color.RED);
+
                             Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                             vibe.vibrate(100);
-                            //vibe.vibrate(100);
 
                             right_arrow.setImageResource(R.drawable.red_right_arrow);
 
-                            if(first<6)
+                            if(first<max_right)
                             {
                                 first++;
 
-                                horizontal_bar(first,vertical);
 
+                               screen_refresh();
 
                             }
 
@@ -97,9 +86,7 @@ public class MainActivity extends AppCompatActivity {
                         case MotionEvent.ACTION_UP:
 
                             right_arrow.setImageResource(R.drawable.right_arrow);
-                            // sqr.setBackgroundColor(Color.parseColor("#17615B"));
 
-                            // process("/");
                             return true;
                     }
                     return false;
@@ -109,17 +96,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        /*
-         right_arrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                msg_box("Right Arrow");
-
-            }
-        });
-         */
-
 
         left_arrow.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
@@ -127,55 +103,31 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        //sqr.setBackgroundColor(Color.RED);
+
                         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                         vibe.vibrate(100);
-                        //vibe.vibrate(100);
+
                         left_arrow.setImageResource(R.drawable.red_left_arrow);
 
                         if(first>0)
                         {
                             first--;
 
-                            horizontal_bar(first,vertical);
-
+                           screen_refresh();
 
                         }
-
-
-
 
                         return true;
                     case MotionEvent.ACTION_UP:
 
-
-
-
-
-
                         left_arrow.setImageResource(R.drawable.left_arrow);
-                        // sqr.setBackgroundColor(Color.parseColor("#17615B"));
 
-
-
-
-                        // process("/");
                         return true;
                 }
                 return false;
             }
         });
 
-        /*
-         left_arrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            msg_box("Left Arrow");
-
-            }
-        });
-         */
 
 
         turn_arrow.setOnTouchListener(new View.OnTouchListener() {
@@ -184,22 +136,33 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        //sqr.setBackgroundColor(Color.RED);
+
                         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                         vibe.vibrate(100);
-                        //vibe.vibrate(100);
+
                         turn_arrow.setImageResource(R.drawable.red_repeat);
+
+                        if(direction==1)
+
+                        {
+
+                            direction=2;
+
+                        }
+
+                            else
+                        {
+
+                            direction=1;
+                        }
+
+
                         return true;
                     case MotionEvent.ACTION_UP:
 
 
                         turn_arrow.setImageResource(R.drawable.repeat);
-                        // sqr.setBackgroundColor(Color.parseColor("#17615B"));
 
-
-
-
-                        // process("/");
                         return true;
                 }
                 return false;
@@ -207,16 +170,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /*
-         turn_arrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                msg_box("Turn Arrow");
-
-            }
-        });
-         */
 
 
         down_arrow.setOnTouchListener(new View.OnTouchListener() {
@@ -225,20 +178,17 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        //sqr.setBackgroundColor(Color.RED);
+
                         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                         vibe.vibrate(100);
-                        //vibe.vibrate(100);
+
                         down_arrow.setImageResource(R.drawable.red_down_arrow);
                         return true;
                     case MotionEvent.ACTION_UP:
 
 
                         down_arrow.setImageResource(R.drawable.down_arrow);
-                        // sqr.setBackgroundColor(Color.parseColor("#17615B"));
 
-
-                        // process("/");
                         return true;
                 }
                 return false;
@@ -246,16 +196,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /*
-        down_arrow.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        msg_box("Down Arrow");
-
-                    }
-                });
-         */
 
 
         double_down_arrow.setOnTouchListener(new View.OnTouchListener() {
@@ -264,27 +204,21 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        //sqr.setBackgroundColor(Color.RED);
+
                         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                         vibe.vibrate(100);
-                        //vibe.vibrate(100);
+
                         double_down_arrow.setImageResource(R.drawable.red_doublearrow);
                         return true;
                     case MotionEvent.ACTION_UP:
 
-
                         double_down_arrow.setImageResource(R.drawable.doublearrow);
-                        // sqr.setBackgroundColor(Color.parseColor("#17615B"));
 
-
-                        // process("/");
                         return true;
                 }
                 return false;
             }
         });
-
-
 
 
 
@@ -296,24 +230,35 @@ public class MainActivity extends AppCompatActivity {
  public void screen_refresh()
     {
 
-
-        coords = new boolean[20][10];
-
-        /*
-          for(int x=0;x<coords.length;x++)
+        switch (direction)
         {
-            for(int y=0;y<coords[0].length;y++)
+            case 1:
+               //reverse_z();
+               regular_z();
+                // square();
+                //horizontal_bar();
+            break;
+
+            case 2:
+               //vertical=+3;
+                //vertical_bar(first+2 ,vertical-2);
+                vertical_bar();
+                break;
+        }
+
+
+        for(int y=0;y<coords.length;y++)
+        {
+
+            for(int x=0;x<coords[0].length;x++)
             {
-                coords[x][y]=true;
+
+                if(coords[y][x]==true)  iv [x] [y].setImageResource(R.drawable.tet2);
+                else  iv [x] [y].setImageResource(R.drawable.tet1);
 
             }
 
         }
-         */
-
-       horizontal_bar(first ,vertical);
-        // for(int y=0;y<20;y++)
-
 
     }
 
@@ -351,27 +296,15 @@ public class MainActivity extends AppCompatActivity {
                 try
                 {
 
-                    while (vertical<20)
+                    while (vertical<30)
                     {
-                        sleep(1000);
+                        sleep(800);
                         Log.d("",vertical+"");
 
-
-
-
-                        horizontal_bar(first,vertical);
-
-                        /*
-                        for(int x=first;x<last;x++)
-                        {
-                            iv [x] [vertical].setImageResource(R.drawable.tet1);
-                            if(vertical>0)   iv [x] [vertical-1].setImageResource(R.drawable.tet2);
-                        }
-                         */
-
-
-
                         vertical++;
+
+                      screen_refresh();
+
 
                     }
 
@@ -387,89 +320,106 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public  void horizontal_bar(int apsis, int ordinate)
+    public  void reverse_z()
     {
 
-
-/*
-
-        for(int y=3;y<4;y++)
-        {
-
-
-            for(int x=3;x<7;x++)
-            {
-                coords[y][x]=false;
-            }
-
-        }
-
- */
-
-
+        max_right=7;
 
         for(int y=0;y<coords.length;y++) {
 
             for (int x = 0; x < coords[0].length; x++) {
 
-                if(x>=apsis && x<=apsis+3 && y>=ordinate &&  y<= ordinate) coords[y][x]=false;
+                if(x>=first+1 && x<=first+2 && y>=vertical &&  y<= vertical) coords[y][x]=false;
+                else if(x>=first && x<=first+1 && y>=vertical+1 &&  y<= vertical+1) coords[y][x]=false;
                 else  coords[y][x]=true;
-
             }
 
         }
-
-         for(int y=0;y<coords.length;y++)
-        {
-            // for(int x=0;x<10;x++)
-
-
-            for(int x=0;x<coords[0].length;x++)
-            {
-
-                if(coords[y][x]==true)  iv [x] [y].setImageResource(R.drawable.tet2);
-                else  iv [x] [y].setImageResource(R.drawable.tet1);
-
-
-            }
-
-        }
-
-
-
-
-
-
-/*
- for(int x=3;x<7;x++)
-        {
-            coords[0][x]=false;
-        }
- */
-
-
-        /*
-         try {
-            for(int x=first;x<last;x++)
-            {
-                  if(vertical>0)  iv [x] [vertical-1].setImageResource(R.drawable.tet2);
-                iv [x] [vertical].setImageResource(R.drawable.tet1);
-
-            }
-        }
-        catch (Exception e)
-        {
-
-        }
-         */
-
-
 
     }
 
-    /*
 
-     */
+
+    public  void regular_z()
+    {
+
+        max_right=7;
+
+        for(int y=0;y<coords.length;y++) {
+
+            for (int x = 0; x < coords[0].length; x++) {
+
+                if(x>=first && x<=first+1 && y>=vertical &&  y<= vertical) coords[y][x]=false;
+                else if(x>=first+1 && x<=first+2 && y>=vertical+1 &&  y<= vertical+1) coords[y][x]=false;
+                else  coords[y][x]=true;
+            }
+
+        }
+
+    }
+
+
+
+    public  void square()
+    {
+
+        max_right=8;
+
+        for(int y=0;y<coords.length;y++) {
+
+            for (int x = 0; x < coords[0].length; x++) {
+                //if(x>=apsis && x<=apsis+3 && y>=ordinate &&  y<= ordinate) coords[y][x]=false;
+                if(x>=first && x<=first+1 && y>=vertical &&  y<= vertical+1) coords[y][x]=false;
+                else  coords[y][x]=true;
+            }
+
+        }
+
+    }
+
+
+
+
+
+  public  void horizontal_bar()
+    {
+
+        max_right=6;
+
+        for(int y=0;y<coords.length;y++) {
+
+            for (int x = 0; x < coords[0].length; x++) {
+                //if(x>=apsis && x<=apsis+3 && y>=ordinate &&  y<= ordinate) coords[y][x]=false;
+                if(x>=first && x<=first+3 && y>=vertical &&  y<= vertical) coords[y][x]=false;
+                else  coords[y][x]=true;
+            }
+
+        }
+
+    }
+
+
+
+    public  void vertical_bar()
+    {
+
+        max_right=9;
+
+        for(int y=0;y<coords.length;y++) {
+
+            for (int x = 0; x < coords[0].length; x++) {
+
+               // if(x>=apsis && x<=apsis && y>=ordinate &&  y<= ordinate+3) coords[y][x]=false;
+                if(x>=first+1 && x<=first+1 && y>=vertical-1 &&  y<= vertical+3-1) coords[y][x]=false;
+                else  coords[y][x]=true;
+            }
+
+        }
+
+    }
+
+
+
 
     public void game_board(int Width, int Height)
     {
@@ -549,11 +499,6 @@ public class MainActivity extends AppCompatActivity {
         between_arrows(200,200);
         double_down_arrow();
 
-
-       /*
-          between_arrows(200,200);
-        right_arrow();
-        */
 
 
     }
