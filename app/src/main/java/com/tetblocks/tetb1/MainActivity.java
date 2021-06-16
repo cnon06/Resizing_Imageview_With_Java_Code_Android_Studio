@@ -233,8 +233,11 @@ public class MainActivity extends AppCompatActivity {
         switch (direction)
         {
             case 1:
+               regular_T();
+                // reverse_L();
+              //regular_L();
                //reverse_z();
-               regular_z();
+               //regular_z();
                 // square();
                 //horizontal_bar();
             break;
@@ -317,6 +320,65 @@ public class MainActivity extends AppCompatActivity {
         }.start();
 
     }
+
+
+    public  void reverse_L()
+    {
+
+        max_right=7;
+
+        for(int y=0;y<coords.length;y++) {
+
+            for (int x = 0; x < coords[0].length; x++) {
+
+                if(x>=first && x<=first+2 && y>=vertical &&  y<= vertical) coords[y][x]=false;
+                else if(x>=first && x<=first && y>=vertical+1 &&  y<= vertical+1) coords[y][x]=false;
+                else  coords[y][x]=true;
+            }
+
+        }
+
+    }
+
+
+
+    public  void regular_L()
+    {
+
+        max_right=7;
+
+        for(int y=0;y<coords.length;y++) {
+
+            for (int x = 0; x < coords[0].length; x++) {
+
+                if(x>=first && x<=first+2 && y>=vertical &&  y<= vertical) coords[y][x]=false;
+                else if(x>=first+2 && x<=first+2 && y>=vertical+1 &&  y<= vertical+1) coords[y][x]=false;
+                else  coords[y][x]=true;
+            }
+
+        }
+
+    }
+
+    public  void regular_T()
+    {
+
+        max_right=7;
+
+        for(int y=0;y<coords.length;y++) {
+
+            for (int x = 0; x < coords[0].length; x++) {
+
+                if(x>=first && x<=first+2 && y>=vertical &&  y<= vertical) coords[y][x]=false;
+                else if(x>=first+1 && x<=first+1 && y>=vertical+1 &&  y<= vertical+1) coords[y][x]=false;
+                else  coords[y][x]=true;
+            }
+
+        }
+
+    }
+
+
 
 
 
