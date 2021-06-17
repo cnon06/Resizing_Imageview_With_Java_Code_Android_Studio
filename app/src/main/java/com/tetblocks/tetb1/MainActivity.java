@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout.LayoutParams parms, controller_parms;
     ImageView iv [] [],right_arrow, left_arrow,  turn_arrow, down_arrow, double_down_arrow ;
     LinearLayout.LayoutParams lp1;
-    int first=4, last = 7, vertical=0,direction=1, max_right=6;
+    int first=3, last = 7, vertical=0,direction=1, max_right=6, max_direction=3;
     boolean coords [][]  = new boolean[20][10];
     boolean direction_control=true;
  //    bar bar1 = new bar();
@@ -148,26 +148,11 @@ public class MainActivity extends AppCompatActivity {
                         turn_arrow.setImageResource(R.drawable.red_repeat);
 
 
-                        /*
-                             if(direction==1)
 
-                        {
-
-                            direction=2;
-
-                        }
-
-                            else
-                        {
-
-                            direction=1;
-                        }
-
-                         */
 
 
                         direction++;
-                        if(direction>=3) direction=1;
+                        if(direction>=max_direction) direction=1;
 
                         return true;
                     case MotionEvent.ACTION_UP:
@@ -246,34 +231,38 @@ public class MainActivity extends AppCompatActivity {
             case 1:
                //regular_T();
                 // reverse_L();
-              //regular_L();
-               // reverse_z_d1();
-            //regular_z_d1();
+               // regular_L_d3();
+            regular_L_d1();
+
+               //reverse_z_d1();
+           // regular_z_d1();
 
                 // square();
-                bar_d1();
+              //  bar_d1();
 
             break;
 
             case 2:
-
+                regular_L_d2();
                // first++;
-                bar_d2();
+
+                // bar_d2();
+
                 //first--;
 
 
-               // reverse_z_d2();
-              //  regular_z_d2();
+                //reverse_z_d2();
+              //regular_z_d2();
                 break;
 
-                /*
-                case 3:
 
+                case 3:
+                    regular_L_d3();
                 //bar_d2();
                 //regular_z_d1();
 
                 break;
-                 */
+
 
 
         }
@@ -371,10 +360,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public  void regular_L()
+    public  void regular_L_d1()
     {
 
-        max_right=7;
+        max_right=7; max_direction=4;
 
         for(int y=0;y<coords.length;y++) {
 
@@ -388,6 +377,45 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
+    public  void regular_L_d2()
+    {
+
+        max_right=8; max_direction=4;
+
+        for(int y=0;y<coords.length;y++) {
+
+            for (int x = 0; x < coords[0].length; x++) {
+
+                if(x>=first+1 && x<=first+1 && y>=vertical-1 &&  y<= vertical+1) coords[y][x]=false;
+               else if(x>=first && x<=first && y>=vertical+1 &&  y<= vertical+1) coords[y][x]=false;
+                else  coords[y][x]=true;
+            }
+
+        }
+
+    }
+
+
+    public  void regular_L_d3()
+    {
+
+        max_right=7; max_direction=4;
+
+        for(int y=0;y<coords.length;y++) {
+
+            for (int x = 0; x < coords[0].length; x++) {
+
+                if(x>=first && x<=first && y>=vertical-1 &&  y<= vertical-1) coords[y][x]=false;
+                else if(x>=first && x<=first+2 && y>=vertical &&  y<= vertical) coords[y][x]=false;
+                else  coords[y][x]=true;
+            }
+
+        }
+
+    }
+
 
     public  void regular_T()
     {
@@ -414,7 +442,7 @@ public class MainActivity extends AppCompatActivity {
     public  void reverse_z_d1()
     {
 
-        max_right=7;
+        max_right=7; max_direction=3;
 
         for(int y=0;y<coords.length;y++) {
 
@@ -435,7 +463,7 @@ public class MainActivity extends AppCompatActivity {
     {
 
 
-        max_right=8;
+        max_right=8; max_direction=3;
 
         for(int y=0;y<coords.length;y++) {
 
@@ -450,20 +478,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        /*
-         max_right=7;
 
-        for(int y=0;y<coords.length;y++) {
-
-            for (int x = 0; x < coords[0].length; x++) {
-
-                if(x>=first+1 && x<=first+2 && y>=vertical &&  y<= vertical) coords[y][x]=false;
-                else if(x>=first && x<=first+1 && y>=vertical+1 &&  y<= vertical+1) coords[y][x]=false;
-                else  coords[y][x]=true;
-            }
-
-        }
-         */
 
 
     }
@@ -471,7 +486,7 @@ public class MainActivity extends AppCompatActivity {
 
     public  void regular_z_d1()
     {
-        max_right=7;
+        max_right=7; max_direction=3;
 
         for(int y=0;y<coords.length;y++) {
 
@@ -490,7 +505,7 @@ public class MainActivity extends AppCompatActivity {
 
     public  void regular_z_d2()
     {
-        max_right=8;
+        max_right=8; max_direction=3;
 
         for(int y=0;y<coords.length;y++) {
 
@@ -537,11 +552,15 @@ public class MainActivity extends AppCompatActivity {
 
 
             direction_control=true;
-            max_right=6;
+            max_right=6; max_direction=3;
 
             for(int y=0;y<coords.length;y++) {
 
                 for (int x = 0; x < coords[0].length; x++) {
+
+                    if(first>max_right) first--;
+                    if(first<0) first++;
+
                     //if(x>=apsis && x<=apsis+3 && y>=ordinate &&  y<= ordinate) coords[y][x]=false;
                     if(x>=first && x<=first+3 && y>=vertical &&  y<= vertical) coords[y][x]=false;
                     else  coords[y][x]=true;
@@ -558,7 +577,9 @@ public class MainActivity extends AppCompatActivity {
     public  void bar_d2()
     {
         direction_control=false;
-        max_right=8;
+        max_right=8; max_direction=3;
+
+
 
         for(int y=0;y<coords.length;y++) {
 
