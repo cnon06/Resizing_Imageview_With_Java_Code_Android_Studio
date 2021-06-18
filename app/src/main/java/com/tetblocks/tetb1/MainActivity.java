@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    LinearLayout ln1, lln [],controller, space_between_game_board_and_controller, controller2;
+    LinearLayout ln1, lln [],controller, space_between_game_board_and_controller;
     LinearLayout.LayoutParams parms, controller_parms;
     ImageView iv [] [],right_arrow, left_arrow,  turn_arrow, down_arrow, double_down_arrow ;
     LinearLayout.LayoutParams lp1;
@@ -148,12 +148,10 @@ public class MainActivity extends AppCompatActivity {
                         turn_arrow.setImageResource(R.drawable.red_repeat);
 
 
-
-
-
                         direction++;
                         if(direction>=max_direction) direction=1;
 
+                        screen_refresh();
                         return true;
                     case MotionEvent.ACTION_UP:
 
@@ -229,10 +227,12 @@ public class MainActivity extends AppCompatActivity {
         switch (direction)
         {
             case 1:
+
                //regular_T();
                 // reverse_L();
                // regular_L_d3();
-            regular_L_d1();
+                regular_L_d1();
+          //  regular_L_d1();
 
                //reverse_z_d1();
            // regular_z_d1();
@@ -264,6 +264,14 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
 
+            case 4:
+
+                regular_L_d4();
+                //vertical++;
+                //bar_d2();
+                //regular_z_d1();
+
+                break;
 
         }
 
@@ -362,8 +370,9 @@ public class MainActivity extends AppCompatActivity {
 
     public  void regular_L_d1()
     {
+        direction_control=true;
+        max_right=7; max_direction=5;
 
-        max_right=7; max_direction=4;
 
         for(int y=0;y<coords.length;y++) {
 
@@ -381,8 +390,8 @@ public class MainActivity extends AppCompatActivity {
 
     public  void regular_L_d2()
     {
-
-        max_right=8; max_direction=4;
+        direction_control=true;
+        max_right=8; max_direction=5;
 
         for(int y=0;y<coords.length;y++) {
 
@@ -400,8 +409,8 @@ public class MainActivity extends AppCompatActivity {
 
     public  void regular_L_d3()
     {
-
-        max_right=7; max_direction=4;
+        direction_control=true;
+        max_right=7; max_direction=5;
 
         for(int y=0;y<coords.length;y++) {
 
@@ -409,6 +418,26 @@ public class MainActivity extends AppCompatActivity {
 
                 if(x>=first && x<=first && y>=vertical-1 &&  y<= vertical-1) coords[y][x]=false;
                 else if(x>=first && x<=first+2 && y>=vertical &&  y<= vertical) coords[y][x]=false;
+                else  coords[y][x]=true;
+            }
+
+        }
+
+    }
+
+    public  void regular_L_d4()
+    {
+
+        direction_control=false;
+        max_right=7; max_direction=5;
+
+
+        for(int y=0;y<coords.length;y++) {
+
+            for (int x = 0; x < coords[0].length; x++) {
+
+                if(x>=first+2 && x<=first+2 && y>=vertical-1 &&  y<= vertical-1) coords[y][x]=false;
+                else if(x>=first+1 && x<=first+1 && y>=vertical-1 &&  y<= vertical+1) coords[y][x]=false;
                 else  coords[y][x]=true;
             }
 
