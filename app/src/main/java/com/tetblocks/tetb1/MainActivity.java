@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout.LayoutParams parms, controller_parms;
     ImageView iv [] [],right_arrow, left_arrow,  turn_arrow, down_arrow, double_down_arrow ;
     LinearLayout.LayoutParams lp1;
-    int first=3, last = 7, vertical=0,direction=1, max_right=6, max_direction=3, block_type=1;
+    int first=3, last = 7, vertical=0,direction=1, max_right=6, max_direction=3, block_type=4, speed=800, lvl=1;
     boolean coords [][]  = new boolean[20][10];
     boolean direction_control=true;
 
@@ -40,7 +40,24 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_main);
-        
+
+
+        switch (lvl)
+        {
+            case 1:
+                speed=800;
+                break;
+
+            case 2:
+                speed=500;
+                break;
+
+            case 3:
+                speed=200;
+                break;
+
+        }
+
         ln1 = findViewById(R.id.ln1);
 
        lp1 = new LinearLayout.LayoutParams(
@@ -390,6 +407,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void timer1()
     {
+
+
+
         new Thread(){
 
             @Override
@@ -402,7 +422,7 @@ public class MainActivity extends AppCompatActivity {
 
                     while (vertical<30)
                     {
-                        sleep(800);
+                        sleep(speed);
                         Log.d("",vertical+"");
 
                         vertical++;
