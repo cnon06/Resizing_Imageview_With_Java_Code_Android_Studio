@@ -26,10 +26,11 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout.LayoutParams parms, controller_parms;
     ImageView iv [] [],right_arrow, left_arrow,  turn_arrow, down_arrow, double_down_arrow ;
     LinearLayout.LayoutParams lp1;
-    int first=3, last = 7, vertical=0,direction=1, max_right=6, max_direction=3;
+    int first=3, last = 7, vertical=0,direction=1, max_right=6, max_direction=3, block_type=4;
     boolean coords [][]  = new boolean[20][10];
     boolean direction_control=true;
- //    bar bar1 = new bar();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +40,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_main);
-
         
         ln1 = findViewById(R.id.ln1);
-
 
        lp1 = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT
@@ -220,6 +219,73 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void block_type_d1()
+    {
+        switch (block_type)
+        {
+            case 1:
+                bar_d1();
+                break;
+
+            case 2:
+                regular_z_d1();
+                break;
+
+            case 3:
+                reverse_z_d1();
+                break;
+
+            case 4:
+                regular_L_d1();
+                break;
+        }
+    }
+
+
+    public void block_type_d2()
+    {
+        switch (block_type)
+        {
+            case 1:
+                bar_d2();
+                break;
+
+            case 2:
+                regular_z_d2();
+                break;
+
+            case 3:
+                reverse_z_d2();
+                break;
+
+            case 4:
+                regular_L_d2();
+                break;
+        }
+    }
+
+
+    public void block_type_d3()
+    {
+        switch (block_type)
+        {
+
+            case 4:
+                regular_L_d3();
+                break;
+        }
+    }
+
+    public void block_type_d4()
+    {
+        switch (block_type)
+        {
+
+            case 4:
+                regular_L_d4();
+                break;
+        }
+    }
 
  public void screen_refresh()
     {
@@ -228,10 +294,12 @@ public class MainActivity extends AppCompatActivity {
         {
             case 1:
 
+                block_type_d1();
+
                //regular_T();
                 // reverse_L();
                // regular_L_d3();
-                regular_L_d1();
+                //regular_L_d1();
           //  regular_L_d1();
 
                //reverse_z_d1();
@@ -243,7 +311,10 @@ public class MainActivity extends AppCompatActivity {
             break;
 
             case 2:
-                regular_L_d2();
+
+                block_type_d2();
+
+               // regular_L_d2();
                // first++;
 
                 // bar_d2();
@@ -257,7 +328,11 @@ public class MainActivity extends AppCompatActivity {
 
 
                 case 3:
-                    regular_L_d3();
+
+                    block_type_d3();
+
+
+                 //   regular_L_d3();
                 //bar_d2();
                 //regular_z_d1();
 
@@ -265,8 +340,8 @@ public class MainActivity extends AppCompatActivity {
 
 
             case 4:
-
-                regular_L_d4();
+                block_type_d4();
+             //   regular_L_d4();
                 //vertical++;
                 //bar_d2();
                 //regular_z_d1();
@@ -378,6 +453,9 @@ public class MainActivity extends AppCompatActivity {
 
             for (int x = 0; x < coords[0].length; x++) {
 
+                if(first>max_right) first--;
+                if(first<0) first++;
+
                 if(x>=first && x<=first+2 && y>=vertical &&  y<= vertical) coords[y][x]=false;
                 else if(x>=first+2 && x<=first+2 && y>=vertical+1 &&  y<= vertical+1) coords[y][x]=false;
                 else  coords[y][x]=true;
@@ -396,6 +474,10 @@ public class MainActivity extends AppCompatActivity {
         for(int y=0;y<coords.length;y++) {
 
             for (int x = 0; x < coords[0].length; x++) {
+
+
+                if(first>max_right) first--;
+                if(first<0) first++;
 
                 if(x>=first+1 && x<=first+1 && y>=vertical-1 &&  y<= vertical+1) coords[y][x]=false;
                else if(x>=first && x<=first && y>=vertical+1 &&  y<= vertical+1) coords[y][x]=false;
@@ -416,6 +498,10 @@ public class MainActivity extends AppCompatActivity {
 
             for (int x = 0; x < coords[0].length; x++) {
 
+                if(first>max_right) first--;
+                if(first<0) first++;
+
+
                 if(x>=first && x<=first && y>=vertical-1 &&  y<= vertical-1) coords[y][x]=false;
                 else if(x>=first && x<=first+2 && y>=vertical &&  y<= vertical) coords[y][x]=false;
                 else  coords[y][x]=true;
@@ -435,6 +521,10 @@ public class MainActivity extends AppCompatActivity {
         for(int y=0;y<coords.length;y++) {
 
             for (int x = 0; x < coords[0].length; x++) {
+
+
+                if(first>max_right) first--;
+                if(first<-1) first++;
 
                 if(x>=first+2 && x<=first+2 && y>=vertical-1 &&  y<= vertical-1) coords[y][x]=false;
                 else if(x>=first+1 && x<=first+1 && y>=vertical-1 &&  y<= vertical+1) coords[y][x]=false;
